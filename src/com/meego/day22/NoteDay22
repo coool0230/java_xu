@@ -1,0 +1,187 @@
+数据库
+--------------------------------------
+	1.RDBMS
+		relation database management system,关系型数据库管理系统
+		软件
+		存储数据
+		存放的是结构化数据
+		
+		MySQL		//RDBMS的一款产品
+		Oracle		//Oracle
+		DB2			//IBM
+		SQL Server	//MicroSoft
+		
+		
+		SQL规范:		Structured	Query	Language,结构化查询语言
+		
+		
+
+API
+---------------
+	Application program interface
+	jar
+	Class
+	method
+		
+		
+		
+CRUD
+-----------------------------------------
+	c:create			创建
+	r:retrieve			检索
+	u:update			更新
+	d:delete			删除
+
+
+术语
+-------------------------------------
+	1.table		表
+	2.colum		字段(field)
+	3.row		记录(record)
+	4.库			库是表的集合
+	
+
+安装MySQL
+---------------------------------
+	1.下载mysql
+	2.使用管理员方式安装
+	3.安装路径不要有中文和空格
+	4.custom 自定义安装---指定安装目录-ok-next
+	5.点击finish,启动配置向导
+	6.一路next--->
+	7.设置networking options,打钩,添加防火墙例外
+	8.选择第三个单选按钮,然后手动选择默认的字符集(utf-8)
+	9.设置root的密码.,同时选中允许remote login
+	10.next--->...
+	11.finish
+	
+	
+验证安装是否成功
+-----------------------------------
+	1.查看mysql服务是否启动--控制面板-->管理工具-->mysql
+	2.ctrl+r--->service.msc
+	3.进入mysql的命令行终端
+		开始菜单-->mysql command line client -->输入密码-->ok
+		
+
+
+
+sc
+--------------------------------
+	service  console,服务控制台程序,可以启动,停止,删除等服务
+	sc start MySQL
+	sc stop  MySQL
+	sc delete MySql		//从注册表删除的服务记录
+	
+	
+MySQL常用指令
+	1.启动mysql 命令行
+		mysql -h hostname -u root -p (root)			//链接远程服务器
+		mysql  -u root -p (root)					//链接localhost
+		mysql  -uroot -p (root)						//直接登录到自己主机
+		
+	2.查看mysql的帮助
+		mysql --hlep								//帮助
+		
+		
+	3.查询当前日期和时间
+		mysql>select current_date;			//伪劣
+		mysql>select now();					//函数
+		
+	4.查询当前存在的所有数据库
+		mysql>show databases;
+		mysql>-- 这是注释;
+	5.删除数据库
+		mysql>drop database name;			//name为要删除的数据库名称
+		
+	6.创建数据库
+		mysql>create database name;			//name为要创建的数据库名称
+		
+	7.使用指定的数据库
+		mysql>use mybase ;					//mybase 要使用的数据库名称
+		
+	8.显示所有表
+		mysql>show tables;
+		
+	9.创建表
+		mysql>create table test(id int,name varchar(20),age int,*,*)  //test为要创建的表名,*为表的字段
+		
+	10.查看表结构
+		mysql>describe test;									//test为要查看的表名
+		mysql>desc test;										//test为要查看的表名
+		
+	11.删除表
+		mysql>drop table test;									//删除表
+		
+	12.查询记录
+		mysql>select * from test;								//test 为要查询的表名,全字段+全表扫描;
+		mysql>select id,name,age from test						//投影查询 project,id+name+age为要查询的字段
+		mysql>select * from test where name not like 't%';		//查询name非t开头的
+		mysql>select * from test where name is null;			//null比较特殊,用is   null 和 NULL 不一样
+		mysql>select * from test where name like 'tom\_'		//\_  转义字符
+		
+		mysql>select * from test where name order by id desc;	//order by 字段 desc		降序排列
+		mysql>select * from test where name order by id asc;	//order by 字段 desc		升序排列
+		mysql>select * from test where name order by id asc,age desc;		//组合排序,先按id升序排,相同的按照age降序排
+		
+		[聚集函数查询]
+		mysql>select count(*) from test;						//count,查询记录总数
+																//max/min,查询最大值/最小值
+																//avg,查的是平均值
+																//sum,求和
+		
+		
+	13.插入记录
+		mysql>insert into test(id,name,age) values("","","");	//插入数据
+		mysql>insert into test values("","","");				//插入数据(包含全部字段,字段值可以省略)
+		
+	14.更新记录
+		mysql>update test set age=22;							//修改表中所有数据的age为22
+		mysql>
+		update test set
+			name = 'xxx',
+			age =22 where
+			id = 5;												//修改id为5的数据name和age字段
+			
+			
+		mysql>update test set age = age + 1 where id >0 ;		//所有数据的age + 1
+		
+	15.删除记录
+		mysql>delete from test									//如果不加where条件,删除整张表所有记录(数据)
+		
+	16.使用mysql命令执行sql脚本
+		mysql> source d:/java/findtest.sql
+		
+		
+	
+JDBC
+------------------------------------------
+	java database connection,用socket编程实现
+	
+	
+
+MySQL约束
+-------------------------------------------
+	1.primary key(主键)
+		不能为null,也不能重复. primary(主键)
+		create table test (id int primary key name String,age int);
+		
+	2.自增
+		create table test (id int primary key auto_increment,name String,age int);
+		auto_increment			//自增
+		
+		
+	3.不能为空
+		create table test (id int primary key auto_increment,name String NOT NULL,age int);
+		NOT NULL
+	
+	4.带条件创建
+		create database if not exists mybase;
+		create table if not exists test;
+		
+		drop database if exists mybase;
+		drop table if exists test;
+	
+		
+		
+		

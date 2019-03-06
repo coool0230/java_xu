@@ -1,1 +1,91 @@
 第13天笔记
+
+
+缓冲区字符流
+------------------------------
+	1.BufferedReader
+	2.BufferedWriter
+		a.等级树
+			java.lang.Object
+				|----java.io.Writer
+					|----java.io.BufferedWriter
+
+
+函数的回调
+--------------------------------
+	BufferedWriter由于BufferedWriter函数没有重写write()函数,所以调用write()函数时,调用父类Writer的write()函数
+	父类的write()函数内部调用的是函数write(xxx,xxx,xxx),这个函数BufferedWriter有重写,所以又重新调用BufferedWirter的
+	write(xxx,xxx,xxx)函数
+
+装饰模式:decorator
+-------------------------------------
+	1.实现方式
+		Buffered类集成Writer类,在勒种添加Writer类型的成员变量,对相应方法进行重写,调用成员变量的方法进行完成
+		实例如下:
+		class BufferedWriter extends Writer{
+			Writer out;
+			char[]] cb = new char[9183];
+			
+			public void writer(String str){
+			//1.先将数据写入到缓冲区
+			cb.xxx
+			//2...如果cb已满,在写入到out种
+			}
+			
+			public void close(){
+			//1.清理cb
+			//2.关闭out
+			}
+
+
+
+
+junit
+-----------------------
+	1.单元测试框架
+	2.方便进行测试使用的
+	3.方法签名
+		import org.junit.Test
+		@est
+		public void xxx(){
+			.....
+		}
+		方法必须是非静态,不能有返回值,不能带参数
+
+
+十六进制整数
+-------------------------------
+
+byte	:	-128 ~ 127
+meta data
+-------------------------------
+	1.描述数据的数据
+	2.文件开头的信息称为文件头
+	3.mp3
+	4.处理文本时尽量用字符流,其他用字节流
+		
+
+utf-8     三个字节表示一个汉字
+GBK		  两个字节表示一个汉字
+
+字节流
+--------------------------------
+	1.FileInputStream
+		支持skip()方法,skip(负数)向后跳的时候不能超过文件头地址,向前跳的时候可以超过文件末尾
+		
+	2.FileOutputStream
+		不支持文件跳跃skip()
+	3.RandomAccessFile
+		随机访问文件,定位到文件的任意位置
+		
+
+作业
+--------------------------------------
+	1.写入数据1~1000000数字到文件中,分别使用FileWriter和BufferWriter实现,考察其效率的不同
+	2.考察磁盘缓冲区的关闭对写入数据的影响
+	3.文件切割.
+		把较大的文件切割成20k一个的小文件
+	4.文件合成
+		把小文件合并成大文件
+	5.文件的归档
+	
