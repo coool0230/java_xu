@@ -1,0 +1,16 @@
+修改表,添加列
+-----------------------------------------
+	alter table add column password carchar(20);
+Statement
+-----------------------------------------
+	语句
+	SQL注入:
+		String sql = "select * from persons where name = '" + tfName.getName() + "'  
+		->and password = '" + tf.pass.getpassword() +"';
+	效率差
+		
+
+PreparedStatement
+----------------------------------------
+	预处理语句
+	
